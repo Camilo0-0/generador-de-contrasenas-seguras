@@ -1,8 +1,3 @@
----
-
-
-## `docs/manual_usuario.md`
-```markdown
 # Manual de usuario
 
 
