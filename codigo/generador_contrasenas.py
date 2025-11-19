@@ -1,80 +1,46 @@
-contraseña = []
+import random
 
+print("Generador de contraseñas")
 
-for grupo in grupos:
-contraseña.append(random.choice(grupo))
+usar_mayus = input("¿Quieres mayúsculas? (s/n): ")
+usar_minus = input("¿Quieres minúsculas? (s/n): ")
+usar_numeros = input("¿Quieres números? (s/n): ")
+usar_simbolos = input("¿Quieres símbolos? (s/n): ")
 
+mayus = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+minus = "abcdefghijklmnopqrstuvwxyz"
+numeros = "0123456789"
+simbolos = "!@#$%&*()_-+=[]{};:,.<>?/"
 
-todos = "".join(grupos)
-resto = longitud - len(contraseña)
-for _ in range(resto):
-contraseña.append(random.choice(todos))
+caracteres = ""
 
+if usar_mayus == "s":
+    caracteres += mayus
+if usar_minus == "s":
+    caracteres += minus
+if usar_numeros == "s":
+    caracteres += numeros
+if usar_simbolos == "s":
+    caracteres += simbolos
 
-random.shuffle(contraseña)
+if caracteres == "":
+    print("No elegiste ningún tipo de carácter. No se puede generar contraseña.")
+    exit()
 
+longitud = int(input("¿Cuántos caracteres quieres que tenga la contraseña?: "))
+contrasena = ""
 
-return ''.join(contraseña)
+for i in range(longitud):
+    contrasena += random.choice(caracteres)
 
+print("Tu contraseña es:", contrasena)
 
+guardar = input("¿Quieres guardarla en un archivo? (s/n): ")
 
-
-def guardar_contrasena(contrasena: str, nombre_archivo: str = 'contraseñas.txt') -> None:
-"""Guarda la contraseña en un archivo (modo append).
-Nota: Este almacenamiento es **texto plano**. Para uso real en producción,
-considere cifrar el archivo o usar un gestor de contraseñas.
-"""
-try:
-with open(nombre_archivo, 'a', encoding='utf-8') as f:
-timestamp = datetime.now().isoformat(sep=' ', timespec='seconds')
-f.write(f"{timestamp} - {contrasena}\n")
-except Exception as e:
-print(f"Error al guardar la contraseña: {e}")
-
-
-
-
-def leer_entero(prompt: str) -> int:
-while True:
-try:
-valor = int(input(prompt))
-return valor
-except ValueError:
-print("Por favor ingresa un número entero válido.")
-
-
-
-
-def menu_interactivo():
-print("Bienvenido al generador de contraseñas seguras")
-
-
-while True:
-print('\nOpciones:')
-print('1) Generar contraseña')
-print('2) Salir')
-opcion = input('Selecciona una opción (1-2): ').strip()
-
-
-if opcion == '1':
-longitud = leer_entero('¿Cuántos caracteres quieres que tenga la contraseña?: ')
-
-
-usar_mayus = input('Incluir mayúsculas? (S/n): ').strip().lower() != 'n'
-usar_minus = input('Incluir minúsculas? (S/n): ').strip().lower() != 'n'
-usar_numeros = input('Incluir números? (S/n): ').strip().lower() != 'n'
-usar_simbolos = input('Incluir símbolos? (S/n): ').strip().lower() != 'n'
-
-
-try:
-contrasena = generar_contrasena(longitud, usar_mayus, usar_minus, usar_numeros, usar_simbolos)
-except ValueError as e:
-print(f"Error: {e}")
-continue
-
-
-print('\nContraseña generada:')
-print(contrasena)
-
-
-guardar = input('¿Deseas guardar la contraseña en un archivo?
+if guardar == "s":
+    archivo = open("contrasenas.txt", "a")
+    archivo.write(contrasena + "\n")
+    archivo.close()
+    print("Contraseña guardada en contrasenas.txt")
+else:
+    print("Contraseña NO guardada")
