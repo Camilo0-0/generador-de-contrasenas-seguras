@@ -1,5 +1,3 @@
-## `docs/estado_del_arte.md`
-```markdown
 # Estado del Arte
 
 
