@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+contraseñas.txt
+contraseñas_*.txt
+.env
+.vscode/
